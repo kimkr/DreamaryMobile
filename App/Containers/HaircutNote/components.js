@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import { Icon, Touchable } from 'App/Components'
-import { Colors, Fonts, Images } from 'App/Theme'
+import { Colors, Fonts, Images, Metrics } from 'App/Theme'
 
 export const ScrollView = styled.ScrollView`
   flex: 1;
@@ -155,3 +155,49 @@ export const TextButton = ({ onPress, children }) => (
                  style={{ fontSize: 17, lineHeight: 31, color: Colors.title }}>{children}</SelectTitle>
   </Touchable>
 )
+
+export const Guide = styled.Text`
+  width: ${Metrics.screenWidth - 30};
+  margin-left: 15px;
+  margin-right: 15px;
+  padding: 10px;
+  font-family: ${Fonts.family.regular};
+  font-size: 13px;
+  line-height: 19px;
+  color: ${Colors.gray06};
+  text-align: center; 
+  background-color: ${Colors.paleGray};
+  border-radius: 10px;
+`
+
+export const Line = styled.View`
+  width: ${Metrics.screenWidth - 30};
+  height: 0.5px;
+  margin-left: 15px;
+  margin-right: 15px; 
+  background-color: rgba(0, 0, 0, 0.2);
+`
+
+export const DateButton = ({ onPress, children }) => (
+  <Touchable
+    style={{
+      width: 64,
+      height: 40,
+      borderRadius: 5,
+      backgroundColor: Colors.paleGray,
+    }}
+    onPress={() => onPress()}
+  >
+    <SelectTitle selected={false}
+                 style={{
+                   fontSize: 15, lineHeight: 40, color: Colors.title,
+                 }}>{children}</SelectTitle>
+  </Touchable>
+)
+export const UnitText = styled.Text`
+  font-family: ${Fonts.family.regular};
+  font-size: 12px;
+  line-height: 31px;
+  color: ${Colors.title};
+  text-align: center;
+`

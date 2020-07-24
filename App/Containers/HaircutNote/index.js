@@ -5,11 +5,12 @@ import { Header, Icon, Space, Box, Row, HorizontalSlider, Touchable, Input, Long
 import {
   ScrollView, Container, ScreenWrapper, HeaderTitle, Section, SectionTitle,
   SelectIconButton, SelectTextButton, SectionQuestion, SectionQuestionImage,
-  ImageButton, AlbumButton, TextButton,
+  ImageButton, AlbumButton, TextButton, Guide, Line, DateButton, UnitText,
 }
   from './components'
 import Strings from './strings'
 import _ from 'lodash'
+import DateTimePicker from '@react-native-community/datetimepicker'
 
 class HaircutNote extends Component {
   constructor(props) {
@@ -27,6 +28,8 @@ class HaircutNote extends Component {
       customerNote: undefined,
       privateNote: undefined,
       showAlbumPopup: false,
+      showDatePicker: false,
+      date: new Date(),
     }
   }
 
@@ -79,10 +82,23 @@ class HaircutNote extends Component {
     this.openShowAlbumPopup()
   }
 
+  onChangeDate = (date) => {
+    this.setState({
+      date,
+      showDatePicker: false,
+    })
+  }
+
+  openDatePicker = () => {
+    this.setState({
+      showDatePicker: true,
+    })
+  }
+
   render() {
     const {
       hairStyle, hairThick, scalpState, beforeDamage, showBeforeDamage, showAlbumPopup,
-      nextVisitMonth, nextVisitWeek, afterNote, productNote, customerNote, privateNote,
+      nextVisitMonth, nextVisitWeek, afterNote, productNote, customerNote, privateNote, date, showDatePicker,
     } = this.state
     return (
       <ScreenWrapper>
@@ -95,6 +111,28 @@ class HaircutNote extends Component {
         </Popup>
         <ScrollView overScrollMode={'never'}>
           <Container>
+            <Space height={20} />
+            <Row style={{ paddingHorizontal: 35, justifyContent: 'space-between' }}>
+              <Row>
+                <DateButton onPress={this.openDatePicker}>{date.getFullYear() + ''}</DateButton>
+                <Space width={10} />
+                <UnitText>{Strings.dateUnits[0]}</UnitText>
+              </Row>
+              <Row>
+                <DateButton onPress={this.openDatePicker}>{date.getMonth() + ''}</DateButton>
+                <Space width={10} />
+                <UnitText>{Strings.dateUnits[1]}</UnitText>
+              </Row>
+              <Row>
+                <DateButton onPress={this.openDatePicker}>{date.getDate() + ''}</DateButton>
+                <Space width={10} />
+                <UnitText>{Strings.dateUnits[2]}</UnitText>
+              </Row>
+            </Row>
+            <Space height={24} />
+            <Line />
+            <Space height={10} />
+            <Guide>{Strings.guide}</Guide>
             <Section>
               <SectionTitle>{Strings.hairStyleTitle}</SectionTitle>
               <Space height={15} />
@@ -345,6 +383,18 @@ class HaircutNote extends Component {
           <HeaderTitle>{Strings.headerTitle}</HeaderTitle>
           <Space width={15} height={15} />
         </Header>
+        {showDatePicker && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={date}
+            mode={'date'}
+            is24Hour={true}
+            maximumDate={new Date(2020, 12, 31)}
+            minimumDate={new Date()}
+            display="default"
+            onChange={(e, d) => this.onChangeDate(d)}
+          />
+        )}
       </ScreenWrapper>
     )
   }

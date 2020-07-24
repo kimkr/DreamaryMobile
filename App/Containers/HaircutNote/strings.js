@@ -41,5 +41,7 @@ export default {
   privateNoteHint: `고객에 관한 정보를 자유롭게 기입해주세요. 해당 정보는 고객에게 공개되지 않습니다.\nex)\n- 옆머리 뜨는 것이 콤플렉스\n- 민감성 두피라 주의 필요`,
   save: '저장',
   takePhoto: '사진 촬영',
-  choosePhoto: '앨범에서 사진 선택'
+  choosePhoto: '앨범에서 사진 선택',
+  guide: `안심하세요!\n아래 내용은 다른 디자이너에게 공개되지 않습니다.`,
+  dateUnits: ['년', '월', '일']
 }
