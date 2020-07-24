@@ -1,13 +1,22 @@
+import { Dimensions, Platform } from 'react-native'
+import { getBottomSpace, getStatusBarHeight } from 'react-native-iphone-x-helper'
+
 export const tiny = 5
 export const small = tiny * 2 // 10
 export const normal = tiny * 3 // 15
 export const medium = normal * 2 // 30
+
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
+
 
 export default {
   tiny,
   small,
   normal,
   medium,
+  screenPaddingTop: getStatusBarHeight(),
+  screenPaddingBottom: getBottomSpace(),
+  headerHeight: getStatusBarHeight() + 48,
   bottomMargin: {
     marginBottom: normal,
   },

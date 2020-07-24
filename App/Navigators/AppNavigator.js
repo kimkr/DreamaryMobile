@@ -1,9 +1,9 @@
 import { createAppContainer, createStackNavigator } from 'react-navigation'
-import ExampleScreen from 'App/Containers/Example/ExampleScreen'
+import HaircutNote from 'App/Containers/HaircutNote'
 
 const StackNavigator = createStackNavigator(
   {
-    MainScreen: ExampleScreen,
+    MainScreen: HaircutNote,
   },
   {
     initialRouteName: 'MainScreen',
