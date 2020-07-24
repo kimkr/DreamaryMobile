@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { Colors, Images, Metrics } from 'App/Theme'
-import { Header, Icon, Space, Box, Row, HorizontalSlider, Touchable } from 'App/Components'
+import { Header, Icon, Space, Box, Row, HorizontalSlider, Touchable, Input } from 'App/Components'
 import {
   ScrollView, Container, ScreenWrapper, HeaderTitle, Section, SectionTitle,
-  SelectIconButton, SelectTextButton, SectionQuestion, SectionQuestionImage
+  SelectIconButton, SelectTextButton, SectionQuestion, SectionQuestionImage,
 }
   from './components'
 import Strings from './strings'
+import _ from 'lodash'
 
 class HaircutNote extends Component {
   constructor(props) {
@@ -16,6 +17,9 @@ class HaircutNote extends Component {
       hairThick: undefined,
       scalpState: undefined,
       beforeDamage: 0,
+      showBeforeDamage: false,
+      nextVisitMonth: 0,
+      nextVisitWeek: 0,
     }
   }
 
@@ -39,8 +43,19 @@ class HaircutNote extends Component {
     this.setState({ beforeDamage })
   }
 
+  openBeforeDamagePopup = () => {
+    this.setState({ showBeforeDamage: true })
+  }
+
+  onChange = () => {
+
+  }
+
   render() {
-    const { hairStyle, hairThick, scalpState, beforeDamage } = this.state
+    const {
+      hairStyle, hairThick, scalpState, beforeDamage,
+      nextVisitMonth, nextVisitWeek,
+    } = this.state
     return (
       <ScreenWrapper>
         <ScrollView overScrollMode={'never'}>
@@ -128,14 +143,65 @@ class HaircutNote extends Component {
                 labels={Strings.beforeDamages}
               />
               <Space height={40} />
-              <Touchable>
+              <Touchable onPress={this.openBeforeDamagePopup}>
                 <Row>
-                  <SectionQuestionImage source={Images.info}/>
-                  <Space width={2}/>
+                  <SectionQuestionImage source={Images.info} />
+                  <Space width={2} />
                   <SectionQuestion>{Strings.beforeDamagesQuestion}</SectionQuestion>
                 </Row>
               </Touchable>
             </Section>
+            <Section>
+              <SectionTitle>{Strings.nextVisitTitle}</SectionTitle>
+              <Space height={15} />
+              <Row>
+                <Input
+                  text={nextVisitMonth + ''}
+                  ref={(ref) => (this.nextVisitMonthInput = ref)}
+                  checkOnSubmit={true}
+                  checkOnBlur={true}
+                  onChange={(val) => this.setState({ nextVisitMonth: val })}
+                  validate={(text) => {
+                    try {
+                      let intVal = _.parseInt(text)
+                      console.log('intVal', intVal)
+                      if (intVal < 0 || intVal > 99) {
+                        return '0~99 입력해주세요'
+                      }
+                    } catch (e) {
+                      return '0~99 입력해주세요'
+                    }
+                  }}
+                  style={{ flex: 1, height: 40, paddingHorizontal: 8, justifyContent: 'flex-end' }}
+                />
+                <Space width={10} />
+                <SectionTitle>{Strings.unitMonth}</SectionTitle>
+              </Row>
+              <Space height={10} />
+              <Row>
+                <Input
+                  text={nextVisitWeek + ''}
+                  ref={(ref) => (this.nextVisitWeekInput = ref)}
+                  checkOnSubmit={true}
+                  checkOnBlur={true}
+                  onChange={(val) => this.setState({ nextVisitWeek: val })}
+                  validate={(text) => {
+                    try {
+                      let intVal = _.parseInt(text)
+                      if (intVal < 0 || intVal > 4) {
+                        return '0~4 입력해주세요'
+                      }
+                    } catch (e) {
+                      return '0~4 입력해주세요'
+                    }
+                  }}
+                  style={{ flex: 1, height: 40,  paddingHorizontal: 8, justifyContent: 'flex-end' }}
+                />
+                <Space width={10} />
+                <SectionTitle>{Strings.unitWeek}</SectionTitle>
+              </Row>
+            </Section>
+            <Space height={240} />
           </Container>
         </ScrollView>
         <Header>

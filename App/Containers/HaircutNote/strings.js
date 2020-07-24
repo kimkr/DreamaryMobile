@@ -24,5 +24,8 @@ export default {
     '손상',
     '극손상'
   ],
-  beforeDamagesQuestion: '모발 상태의 기준이 무엇인가요?'
+  beforeDamagesQuestion: '모발 상태의 기준이 무엇인가요?',
+  nextVisitTitle: '다음 방문일',
+  unitMonth: '개월',
+  unitWeek: '주 뒤'
 }
