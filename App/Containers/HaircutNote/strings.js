@@ -4,7 +4,17 @@ export default {
   hairStyle3: '생머리',
   hairStyle2: '반곱슬',
   hairStyle1: '곱슬',
+  hairThickTitle: '모발 두께',
   hairThick3: '얇음',
   hairThick2: '보통',
   hairThick1: '굵음',
+  scalpStateTitle: '두피 상태',
+  scalpStateGuide: ' ※중복선택 가능',
+  scalpStates: [
+    '중성',
+    '건성',
+    '지성',
+    '민감성',
+    '비듬',
+  ],
 }

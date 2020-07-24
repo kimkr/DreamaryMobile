@@ -64,10 +64,19 @@ export const SelectContainer = styled.View`
   padding-left: 20px;
   padding-right: 20px;
 `
+
+const SelectTitleContainer = styled(SelectContainer)`
+  padding-top: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`
 export const SelectImage = styled.Image`
   width: 100%;
 `
-export const SelectButton = ({ id, selected, source, onPress, title }) => (
+export const SelectIconButton = ({ id, selected, source, onPress, title }) => (
   <Touchable
     style={{
       flex: 1,
@@ -79,5 +88,19 @@ export const SelectButton = ({ id, selected, source, onPress, title }) => (
       <SelectImage source={source} />
       <SelectTitle selected={selected === id}>{title}</SelectTitle>
     </SelectContainer>
+  </Touchable>
+)
+export const SelectTextButton = ({ id, selected, onPress, title }) => (
+  <Touchable
+    style={{
+      flex: 1,
+      height: 40,
+      minWidth: '30%',
+    }}
+    onPress={() => onPress(id)}
+  >
+    <SelectTitleContainer selected={selected === id} style={{ padding: 0 }}>
+      <SelectTitle selected={selected === id}>{title}</SelectTitle>
+    </SelectTitleContainer>
   </Touchable>
 )

@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
-import styled from 'styled-components'
 import { Colors, Images } from 'App/Theme'
-import { Header, Icon, Space, Box } from 'App/Components'
-import { ScrollView, Container, ScreenWrapper, HeaderTitle, Section, SectionTitle, SelectButton } from './components'
+import { Header, Icon, Space, Box, Row } from 'App/Components'
+import {
+  ScrollView, Container, ScreenWrapper, HeaderTitle, Section, SectionTitle,
+  SelectIconButton, SelectTextButton,
+}
+  from './components'
 import Strings from './strings'
 
 class HaircutNote extends Component {
@@ -10,7 +13,8 @@ class HaircutNote extends Component {
     super(props)
     this.state = {
       hairStyle: undefined,
-      hairThick: undefined
+      hairThick: undefined,
+      scalpState: undefined,
     }
   }
 
@@ -26,8 +30,12 @@ class HaircutNote extends Component {
     this.setState({ hairThick })
   }
 
+  onClickScalpState = (scalpState) => {
+    this.setState({ scalpState })
+  }
+
   render() {
-    const { hairStyle, hairThick } = this.state
+    const { hairStyle, hairThick, scalpState } = this.state
     return (
       <ScreenWrapper>
         <ScrollView overScrollMode={'never'}>
@@ -36,19 +44,19 @@ class HaircutNote extends Component {
               <SectionTitle>{Strings.hairStyleTitle}</SectionTitle>
               <Space height={15} />
               <Box>
-                <SelectButton
+                <SelectIconButton
                   id={'hairStyle3'}
                   title={Strings.hairStyle3}
                   source={Images.hairStyle3}
                   onPress={this.onClickHairStyle}
                   selected={hairStyle} />
-                <SelectButton
+                <SelectIconButton
                   id={'hairStyle2'}
                   title={Strings.hairStyle2}
                   source={Images.hairStyle2}
                   onPress={this.onClickHairStyle}
                   selected={hairStyle} />
-                <SelectButton
+                <SelectIconButton
                   id={'hairStyle1'}
                   title={Strings.hairStyle1}
                   source={Images.hairStyle1}
@@ -60,27 +68,48 @@ class HaircutNote extends Component {
               <SectionTitle>{Strings.hairStyleTitle}</SectionTitle>
               <Space height={15} />
               <Box>
-                <SelectButton
-                  id={'hairStyle3'}
+                <SelectIconButton
+                  id={'hairThick3'}
                   title={Strings.hairThick3}
                   source={Images.hairThick3}
                   onPress={this.onClickHairThick}
                   selected={hairThick} />
-                <SelectButton
-                  id={'hairStyle2'}
+                <SelectIconButton
+                  id={'hairThick2'}
                   title={Strings.hairThick2}
                   source={Images.hairThick2}
                   onPress={this.onClickHairThick}
                   selected={hairThick} />
-                <SelectButton
-                  id={'hairStyle1'}
+                <SelectIconButton
+                  id={'hairThick1'}
                   title={Strings.hairThick1}
                   source={Images.hairThick1}
                   onPress={this.onClickHairThick}
                   selected={hairThick} />
               </Box>
             </Section>
-
+            <Section>
+              <Row>
+                <SectionTitle>{Strings.scalpStateTitle}</SectionTitle>
+                <SectionTitle style={{ color: Colors.gray03 }}>{Strings.scalpStateGuide}</SectionTitle>
+              </Row>
+              <Space height={15} />
+              <Box>
+                {
+                  Strings.scalpStates.map((title, idx) => (
+                    <SelectTextButton
+                      id={`scaleState-${idx}`}
+                      title={title}
+                      onPress={this.onClickScalpState}
+                      selected={scalpState} />
+                  ))
+                }
+                <Space style={{
+                  flex: 1, minWidth: '30%', height: 40, backgroundColor: Colors.paleGray,
+                  borderWidth: 1, borderColor: Colors.gray01,
+                }} />
+              </Box>
+            </Section>
           </Container>
         </ScrollView>
         <Header>
