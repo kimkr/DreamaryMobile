@@ -17,6 +17,8 @@ export default {
   screenPaddingTop: getStatusBarHeight(),
   screenPaddingBottom: getBottomSpace(),
   headerHeight: getStatusBarHeight() + 48,
+  screenWidth,
+  screenHeight,
   bottomMargin: {
     marginBottom: normal,
   },

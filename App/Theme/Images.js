@@ -10,4 +10,5 @@ export default {
   hairThick1: require('App/Assets/Images/hair_thick_1.png'),
   hairThick2: require('App/Assets/Images/hair_thick_2.png'),
   hairThick3: require('App/Assets/Images/hair_thick_3.png'),
+  sliderDot: require('App/Assets/Images/slider_dot.jpg'),
 }

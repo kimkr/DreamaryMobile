@@ -17,4 +17,12 @@ export default {
     '민감성',
     '비듬',
   ],
+  beforeDamageTitle: '시술 전 손상도',
+  beforeDamages: [
+    '건강',
+    '보통',
+    '손상',
+    '극손상'
+  ],
+  beforeDamagesQuestion: '모발 상태의 기준이 무엇인가요?'
 }

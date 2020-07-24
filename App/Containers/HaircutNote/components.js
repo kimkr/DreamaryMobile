@@ -104,3 +104,14 @@ export const SelectTextButton = ({ id, selected, onPress, title }) => (
     </SelectTitleContainer>
   </Touchable>
 )
+export const SectionQuestion = styled.Text`
+  font-family: ${Fonts.family.regular};
+  font-size: 11px;
+  line-height: 17;
+  color: ${Colors.title};  
+  text-align: left;
+`
+export const SectionQuestionImage = styled.Image`
+  width: 17px;
+  height: 17px;
+`

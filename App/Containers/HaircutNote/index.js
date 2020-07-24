@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { Colors, Images } from 'App/Theme'
-import { Header, Icon, Space, Box, Row } from 'App/Components'
+import { Colors, Images, Metrics } from 'App/Theme'
+import { Header, Icon, Space, Box, Row, HorizontalSlider, Touchable } from 'App/Components'
 import {
   ScrollView, Container, ScreenWrapper, HeaderTitle, Section, SectionTitle,
-  SelectIconButton, SelectTextButton,
+  SelectIconButton, SelectTextButton, SectionQuestion, SectionQuestionImage
 }
   from './components'
 import Strings from './strings'
@@ -15,6 +15,7 @@ class HaircutNote extends Component {
       hairStyle: undefined,
       hairThick: undefined,
       scalpState: undefined,
+      beforeDamage: 0,
     }
   }
 
@@ -34,8 +35,12 @@ class HaircutNote extends Component {
     this.setState({ scalpState })
   }
 
+  onChangeBeforeDamage = (beforeDamage) => {
+    this.setState({ beforeDamage })
+  }
+
   render() {
-    const { hairStyle, hairThick, scalpState } = this.state
+    const { hairStyle, hairThick, scalpState, beforeDamage } = this.state
     return (
       <ScreenWrapper>
         <ScrollView overScrollMode={'never'}>
@@ -109,6 +114,27 @@ class HaircutNote extends Component {
                   borderWidth: 1, borderColor: Colors.gray01,
                 }} />
               </Box>
+            </Section>
+            <Section>
+              <SectionTitle>{Strings.beforeDamageTitle}</SectionTitle>
+              <Space height={15} />
+              <HorizontalSlider
+                width={Metrics.screenWidth - 86}
+                value={beforeDamage}
+                stamp={beforeDamage}
+                ref={ref => this.slider = ref}
+                onComplete={(value) => this.onChangeBeforeDamage(value)}
+                data={[0, 1, 2, 3]}
+                labels={Strings.beforeDamages}
+              />
+              <Space height={40} />
+              <Touchable>
+                <Row>
+                  <SectionQuestionImage source={Images.info}/>
+                  <Space width={2}/>
+                  <SectionQuestion>{Strings.beforeDamagesQuestion}</SectionQuestion>
+                </Row>
+              </Touchable>
             </Section>
           </Container>
         </ScrollView>
