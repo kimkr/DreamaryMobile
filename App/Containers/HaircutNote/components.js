@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import { Icon, Touchable } from 'App/Components'
-import { Colors, Fonts } from 'App/Theme'
+import { Colors, Fonts, Images } from 'App/Theme'
 
 export const ScrollView = styled.ScrollView`
   flex: 1;
@@ -115,3 +115,43 @@ export const SectionQuestionImage = styled.Image`
   width: 17px;
   height: 17px;
 `
+
+export const ImageButton = ({ id, source, onPress }) => (
+  <Touchable
+    style={{
+      width: 95,
+      height: 95,
+    }}
+    onPress={() => onPress(id)}
+  >
+    <SelectImage source={source} style={{ borderRadius: 5, backgroundColor: Colors.paleGray, width: 95, height: 95 }}
+                 resizeMode={'contain'} />
+  </Touchable>
+)
+
+export const AlbumButton = ({ onPress }) => (
+  <Touchable
+    style={{
+      width: 95,
+      height: 95,
+    }}
+    onPress={() => onPress()}
+  >
+    <SelectImage source={Images.addPhoto}
+                 resizeMode={'center'}
+                 style={{ borderRadius: 5, backgroundColor: Colors.paleGray, width: 95, height: 95 }} />
+  </Touchable>
+)
+
+export const TextButton = ({ onPress, children }) => (
+  <Touchable
+    style={{
+      flex: 1,
+      height: 40,
+    }}
+    onPress={() => onPress()}
+  >
+    <SelectTitle selected={false}
+                 style={{ fontSize: 17, lineHeight: 31, color: Colors.title }}>{children}</SelectTitle>
+  </Touchable>
+)

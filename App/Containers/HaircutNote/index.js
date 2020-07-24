@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { Colors, Images, Metrics } from 'App/Theme'
-import { Header, Icon, Space, Box, Row, HorizontalSlider, Touchable, Input, LongInput } from 'App/Components'
+import { Header, Icon, Space, Box, Row, HorizontalSlider, Touchable, Input, LongInput, Popup, Col }
+  from 'App/Components'
 import {
   ScrollView, Container, ScreenWrapper, HeaderTitle, Section, SectionTitle,
   SelectIconButton, SelectTextButton, SectionQuestion, SectionQuestionImage,
+  ImageButton, AlbumButton, TextButton,
 }
   from './components'
 import Strings from './strings'
@@ -24,6 +26,7 @@ class HaircutNote extends Component {
       productNote: undefined,
       customerNote: undefined,
       privateNote: undefined,
+      showAlbumPopup: false,
     }
   }
 
@@ -51,17 +54,45 @@ class HaircutNote extends Component {
     this.setState({ showBeforeDamage: true })
   }
 
+  closeBeforeDamagePopup = () => {
+    this.setState({ showBeforeDamage: false })
+  }
+
+
+  openShowAlbumPopup = () => {
+    this.setState({ showAlbumPopup: true })
+  }
+
+  closeShowAlbumPopup = () => {
+    this.setState({ showAlbumPopup: false })
+  }
+
   onChange = () => {
 
   }
 
+  onClickImage = (id) => {
+    this.openShowAlbumPopup()
+  }
+
+  onClickAddPhoto = () => {
+    this.openShowAlbumPopup()
+  }
+
   render() {
     const {
-      hairStyle, hairThick, scalpState, beforeDamage,
+      hairStyle, hairThick, scalpState, beforeDamage, showBeforeDamage, showAlbumPopup,
       nextVisitMonth, nextVisitWeek, afterNote, productNote, customerNote, privateNote,
     } = this.state
     return (
       <ScreenWrapper>
+        <Popup visible={showAlbumPopup} onClose={this.closeShowAlbumPopup}>
+          <Col style={{ height: 75, padding: 10, alignItems: 'flex-start' }}>
+            <TextButton onPress={this.closeShowAlbumPopup}>{Strings.takePhoto}</TextButton>
+            <Space height={10} />
+            <TextButton onPress={this.closeShowAlbumPopup}>{Strings.choosePhoto}</TextButton>
+          </Col>
+        </Popup>
         <ScrollView overScrollMode={'never'}>
           <Container>
             <Section>
@@ -203,6 +234,24 @@ class HaircutNote extends Component {
                 />
                 <Space width={10} />
                 <SectionTitle>{Strings.unitWeek}</SectionTitle>
+              </Row>
+            </Section>
+            <Section>
+              <SectionTitle>{Strings.beforeImage}</SectionTitle>
+              <Space height={15} />
+              <Row>
+                <ImageButton onPress={this.onClickImage} source={Images.beforeImage} />
+                <Space width={10} />
+                <AlbumButton onPress={this.onClickAddPhoto} />
+              </Row>
+            </Section>
+            <Section>
+              <SectionTitle>{Strings.afterImage}</SectionTitle>
+              <Space height={15} />
+              <Row>
+                <ImageButton onPress={this.onClickImage} source={Images.afterImage} />
+                <Space width={10} />
+                <AlbumButton onPress={this.onClickAddPhoto} />
               </Row>
             </Section>
             <Section>
