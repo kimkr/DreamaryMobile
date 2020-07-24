@@ -201,3 +201,30 @@ export const UnitText = styled.Text`
   color: ${Colors.title};
   text-align: center;
 `
+
+export const SaveButton = ({ onPress, children }) => (
+  <Touchable
+    style={{
+      width: Metrics.screenWidth - 30,
+      height: 40,
+      borderRadius: 5,
+      backgroundColor: Colors.purple,
+      position: 'absolute',
+      bottom: 20 + Metrics.screenPaddingBottom,
+      left: 15,
+    }}
+    onPress={() => onPress()}
+  >
+    <SelectTitle selected={false}
+                 style={{
+                   fontSize: 15, lineHeight: 40, color: Colors.white,
+                 }}>{children}</SelectTitle>
+  </Touchable>
+)
+export const RequiredText = styled.Text`
+  font-family: ${Fonts.family.regular};
+  font-size: 15px;
+  line-height: 31px;
+  color: ${Colors.title};
+  text-align: center;
+`

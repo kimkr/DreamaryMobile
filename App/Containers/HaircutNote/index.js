@@ -5,7 +5,7 @@ import { Header, Icon, Space, Box, Row, HorizontalSlider, Touchable, Input, Long
 import {
   ScrollView, Container, ScreenWrapper, HeaderTitle, Section, SectionTitle,
   SelectIconButton, SelectTextButton, SectionQuestion, SectionQuestionImage,
-  ImageButton, AlbumButton, TextButton, Guide, Line, DateButton, UnitText,
+  ImageButton, AlbumButton, TextButton, Guide, Line, DateButton, UnitText, SaveButton, RequiredText,
 }
   from './components'
 import Strings from './strings'
@@ -29,6 +29,7 @@ class HaircutNote extends Component {
       privateNote: undefined,
       showAlbumPopup: false,
       showDatePicker: false,
+      showRequiredPopup: false,
       date: new Date(),
     }
   }
@@ -95,13 +96,41 @@ class HaircutNote extends Component {
     })
   }
 
+  onClickSave = () => {
+    const {
+      hairStyle, hairThick, scalpState, beforeDamage,
+      nextVisitMonth, nextVisitWeek, afterNote, productNote, customerNote, privateNote, date,
+    } = this.state
+    if (
+      _.isNil(hairStyle) ||
+      _.isNil(hairThick) ||
+      _.isNil(scalpState) ||
+      _.isNil(beforeDamage) ||
+      _.isNil(nextVisitMonth) ||
+      _.isNil(nextVisitWeek) ||
+      _.isNil(afterNote) ||
+      _.isNil(productNote) ||
+      _.isNil(customerNote) ||
+      _.isNil(privateNote) ||
+      _.isNil(date)) {
+      this.setState({
+        showRequiredPopup: true,
+      })
+    }
+  }
+
   render() {
     const {
-      hairStyle, hairThick, scalpState, beforeDamage, showBeforeDamage, showAlbumPopup,
+      hairStyle, hairThick, scalpState, beforeDamage, showBeforeDamage, showAlbumPopup, showRequiredPopup,
       nextVisitMonth, nextVisitWeek, afterNote, productNote, customerNote, privateNote, date, showDatePicker,
     } = this.state
     return (
       <ScreenWrapper>
+        <Popup visible={showRequiredPopup} onClose={() => this.setState({ showRequiredPopup: false })}>
+          <Col style={{ height: 45, padding: 10, alignItems: 'flex-start' }}>
+            <RequiredText>{Strings.requiredText}</RequiredText>
+          </Col>
+        </Popup>
         <Popup visible={showAlbumPopup} onClose={this.closeShowAlbumPopup}>
           <Col style={{ height: 75, padding: 10, alignItems: 'flex-start' }}>
             <TextButton onPress={this.closeShowAlbumPopup}>{Strings.takePhoto}</TextButton>
@@ -395,6 +424,7 @@ class HaircutNote extends Component {
             onChange={(e, d) => this.onChangeDate(d)}
           />
         )}
+        <SaveButton onPress={this.onClickSave}>{Strings.save}</SaveButton>
       </ScreenWrapper>
     )
   }

@@ -43,5 +43,6 @@ export default {
   takePhoto: '사진 촬영',
   choosePhoto: '앨범에서 사진 선택',
   guide: `안심하세요!\n아래 내용은 다른 디자이너에게 공개되지 않습니다.`,
-  dateUnits: ['년', '월', '일']
+  dateUnits: ['년', '월', '일'],
+  requiredText: `필수선택사항을 채워주세요`,
 }
