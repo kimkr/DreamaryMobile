@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Colors, Images, Metrics } from 'App/Theme'
-import { Header, Icon, Space, Box, Row, HorizontalSlider, Touchable, Input } from 'App/Components'
+import { Header, Icon, Space, Box, Row, HorizontalSlider, Touchable, Input, LongInput } from 'App/Components'
 import {
   ScrollView, Container, ScreenWrapper, HeaderTitle, Section, SectionTitle,
   SelectIconButton, SelectTextButton, SectionQuestion, SectionQuestionImage,
@@ -20,6 +20,10 @@ class HaircutNote extends Component {
       showBeforeDamage: false,
       nextVisitMonth: 0,
       nextVisitWeek: 0,
+      afterNote: undefined,
+      productNote: undefined,
+      customerNote: undefined,
+      privateNote: undefined,
     }
   }
 
@@ -54,7 +58,7 @@ class HaircutNote extends Component {
   render() {
     const {
       hairStyle, hairThick, scalpState, beforeDamage,
-      nextVisitMonth, nextVisitWeek,
+      nextVisitMonth, nextVisitWeek, afterNote, productNote, customerNote, privateNote,
     } = this.state
     return (
       <ScreenWrapper>
@@ -195,11 +199,92 @@ class HaircutNote extends Component {
                       return '0~4 입력해주세요'
                     }
                   }}
-                  style={{ flex: 1, height: 40,  paddingHorizontal: 8, justifyContent: 'flex-end' }}
+                  style={{ flex: 1, height: 40, paddingHorizontal: 8, justifyContent: 'flex-end' }}
                 />
                 <Space width={10} />
                 <SectionTitle>{Strings.unitWeek}</SectionTitle>
               </Row>
+            </Section>
+            <Section>
+              <SectionTitle>{Strings.afterNoteTitle}</SectionTitle>
+              <Space height={15} />
+              <LongInput
+                placeholder={Strings.afterNoteHint}
+                text={afterNote}
+                ref={(ref) => (this.afterNoteInput = ref)}
+                checkOnSubmit={true}
+                checkOnBlur={true}
+                onChange={(val) => this.setState({ afterNote: val })}
+                validate={(text) => {
+                  if (!text || text.length < 1) {
+                    return '입력해주세요'
+                  }
+                }}
+              />
+            </Section>
+            <Section>
+              <Row>
+                <SectionQuestionImage source={Images.lock} />
+                <Space width={2} />
+                <SectionTitle>{Strings.productNoteTitle}</SectionTitle>
+                <Space width={2} />
+                <SectionTitle style={{ color: Colors.error }}>{Strings.private}</SectionTitle>
+              </Row>
+              <Space height={15} />
+              <LongInput
+                placeholder={Strings.productNoteHint}
+                text={productNote}
+                ref={(ref) => (this.productNoteInput = ref)}
+                checkOnSubmit={true}
+                checkOnBlur={true}
+                onChange={(val) => this.setState({ productNote: val })}
+                validate={(text) => {
+                  if (!text || text.length < 1) {
+                    return '입력해주세요'
+                  }
+                }}
+              />
+            </Section>
+            <Section>
+              <SectionTitle>{Strings.customerNoteTitle('태훈')}</SectionTitle>
+              <Space height={15} />
+              <LongInput
+                text={customerNote}
+                placeholder={Strings.customerNoteHint}
+                ref={(ref) => (this.customerNoteInput = ref)}
+                checkOnSubmit={true}
+                checkOnBlur={true}
+                onChange={(val) => this.setState({ customerNote: val })}
+                validate={(text) => {
+                  if (!text || text.length < 1) {
+                    return '입력해주세요'
+                  }
+                }}
+
+              />
+            </Section>
+            <Section>
+              <Row>
+                <SectionQuestionImage source={Images.lock} />
+                <Space width={2} />
+                <SectionTitle>{Strings.privateNoteTitle}</SectionTitle>
+                <Space width={2} />
+                <SectionTitle style={{ color: Colors.error }}>{Strings.private}</SectionTitle>
+              </Row>
+              <Space height={15} />
+              <LongInput
+                text={privateNote}
+                placeholder={Strings.privateNoteHint}
+                ref={(ref) => (this.privateNoteInput = ref)}
+                checkOnSubmit={true}
+                checkOnBlur={true}
+                onChange={(val) => this.setState({ privateNote: val })}
+                validate={(text) => {
+                  if (!text || text.length < 1) {
+                    return '입력해주세요'
+                  }
+                }}
+              />
             </Section>
             <Space height={240} />
           </Container>

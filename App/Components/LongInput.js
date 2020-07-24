@@ -87,26 +87,27 @@ export default class Input extends Component {
       maxLength = undefined,
     } = this.props
     const {
+      height = 200,
       errorColor = Colors.error,
       backgroundColor = Colors.paleGray,
       borderRadius = 5,
       borderWidth = 0,
-      fontSize = 12,
-      lineHeight = 24,
-      paddingHorizontal = 10,
-      textAlign = 'right',
+      fontSize = 15,
+      lineHeight = 23,
+      padding = 10,
       fontFamily = Fonts.family.regular,
       color = Colors.title,
       selectedColor = Colors.title,
       ...containerStyles
     } = style
+
     const { focused, error, text } = this.state
     return (
       <View style={{
         borderColor: error ? errorColor : focused ? selectedColor : color,
         borderWidth,
         borderRadius,
-        paddingHorizontal,
+        padding,
         backgroundColor,
         flexDirection: 'row',
         justifyContent: 'flex-start',
@@ -124,18 +125,19 @@ export default class Input extends Component {
           autoCapitalize="none"
           autoComplete="off"
           autoCorrect={false}
+          multiline={true}
           underlineColorAndroid="transparent"
           focused={focused}
           style={{
-            flex: 1,
+            minHeight: height,
+            flexGrow: 1,
             fontSize,
             fontFamily,
             lineHeight,
-            textAlign,
             color: error ? errorColor : selectedColor,
             padding: 0,
           }}
-          placeholderTextColor={color}
+          placeholderTextColor={Colors.gray03}
           defaultHeight={lineHeight}
           value={_.isString(error) ? error : text}
           editable={focusable}

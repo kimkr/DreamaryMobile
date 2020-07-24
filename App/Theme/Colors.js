@@ -11,5 +11,5 @@ export default {
   transparent: 'rgba(0,0,0,0)',
   white: '#ffffff',
   paleGray: '#f7f7fa',
-  error: '#fe8989'
+  error: '#ff5563'
 }
